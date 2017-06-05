@@ -48,7 +48,7 @@ function onValidRequest(req) {
    const action = req.body.action;
    const repo = req.body.repository.name;
    const login = req.body.sender.login;
-   const tag = null;
+   let tag = null;
    if (req.body.release) {
        tag = req.body.release.tag_name;
    }
