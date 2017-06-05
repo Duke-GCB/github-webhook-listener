@@ -84,6 +84,6 @@ app.post('/', function (req, res) {
 // start server
 app.listen(80, function () {
   console.log('Webhook release watcher: listening on port 80');
-  console.log(`Runs ${onReleaseCmd} passing tag name when receives published release webhook`);
+  console.log(`Runs ${onReleaseCmd} when receives valid webhook POST`);
 })
 
