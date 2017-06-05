@@ -3,10 +3,10 @@
 // Requires webhook to be setup with Content type:application/json
 // Github Webhook event docs: https://developer.github.com/v3/activity/events/types/
 
-const express = require('express');
-const crypto = require('crypto');
-const bodyParser = require('body-parser');
 const childProcess = require('child_process');
+const crypto = require('crypto');
+const express = require('express');
+const bodyParser = require('body-parser');
 
 const githubKey = process.env.GITHUB_KEY;
 const onReleaseCmd = process.env.ON_RELEASE_CMD;

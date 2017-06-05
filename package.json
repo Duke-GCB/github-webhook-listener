@@ -1,0 +1,23 @@
+{
+  "name": "johnbradley",
+  "version": "0.1.0",
+  "description": "Github webhook listener",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.15.3",
+    "body-parser": "^1.17.2",
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Duke-GCB/github-webhook-listener.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Duke-GCB/github-webhook-listener/issues"
+  },
+  "homepage": "https://github.com/Duke-GCB/github-webhook-listener#readme"
+}
+
