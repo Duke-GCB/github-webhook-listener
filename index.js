@@ -70,7 +70,6 @@ function runReleaseCmd(action, repo, tag) {
     });
 }
 
-
 // receive post request from github
 app.post('/', function (req, res) {
   if (signatureIsValid(req)) {
