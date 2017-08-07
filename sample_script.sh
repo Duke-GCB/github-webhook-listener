@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-ACTION=$1
-REPO=$2
-TAG=$3
-echo "Received $ACTION $REPO $TAG"
+MESSAGE=$1
+NAME=$2
+VERSION=$3
+RELEASE=$4
+echo "Build $MESSAGE NAME:$NAME VERSION:$VERSION RELEASE=$RELEASE"

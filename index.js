@@ -7,7 +7,9 @@ const childProcess = require('child_process');
 const crypto = require('crypto');
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 
+const messageRegex = process.env.MESSAGE_REGEX;
 const githubKey = process.env.GITHUB_KEY;
 const onReleaseCmd = process.env.ON_RELEASE_CMD;
 const cryptAlgorithm = 'sha1';
@@ -45,20 +47,29 @@ function signatureIsValid(req) {
 
 // called when we receive a request with a valid signature
 function onValidRequest(req) {
-   const action = req.body.action;
-   const repo = req.body.repository.name;
-   const login = req.body.sender.login;
-   let tag = null;
-   if (req.body.release) {
-       tag = req.body.release.tag_name;
+   const ref = req.body.ref;
+   if (ref === 'refs/heads/master') {
+      const message = req.body.head_commit.message;
+      if (message.match(messageRegex)) {
+          console.log("Processing files for message " + message);
+          const added = req.body.head_commit.added;
+          for (var i = 0; i < added.length; i++) {
+               addedFile = added[i];
+               console.log("build " + addedFile + " msg:" + message);
+               const parts = path.basename(addedFile).replace(/\.spec$/,'').split('-');
+               runReleaseCmd(message, parts[0], parts[1], parts[2]);
+          }
+      } else {
+          console.log("Ignoring message " + message);
+      }
+   } else {
+      console.log("Ignoring ref " + ref);
    }
-   console.log(`Received action ${action} for ${repo} tag ${tag} by ${login}`);
-   runReleaseCmd(action, tag, repo);
 }
 
 // runs background process that does some processing based on the webhook data
-function runReleaseCmd(action, repo, tag) {
-    const childProc = childProcess.spawn(onReleaseCmd, [action, repo, tag]);
+function runReleaseCmd(message, name, version, release) {
+    const childProc = childProcess.spawn(onReleaseCmd, [message, name, version, release]);
     childProc.stdout.on('data', (data) => {
         console.log(`${onReleaseCmd} stdout: ${data}`);
     });
