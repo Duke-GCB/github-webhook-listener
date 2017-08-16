@@ -13,5 +13,5 @@ See [sample_script.sh](https://github.com/Duke-GCB/github-webhook-listener/blob/
 
 ## Run
 ```
-sudo MESSAGE_REGEX='<commit pattern> GITHUB_KEY=<SOMEKEY> ON_RELEASE_CMD=<SCRIPTTORUN> node index.js 
+sudo KEYPATH=<PATH_TO_SSL_KEY> CERTPATH=<PATH_TO_SSL_CERT> MESSAGE_REGEX='<commit pattern> GITHUB_KEY=<SOMEKEY> ON_RELEASE_CMD=<SCRIPTTORUN> node index.js 
 ```
