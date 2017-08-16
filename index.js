@@ -97,10 +97,9 @@ app.post('/', function (req, res) {
 })
 
 var options = {
-    key  : fs.readFileSync('ssl/key.pem'),
-    cert : fs.readFileSync('ssl/cert.pem')
+    key  : fs.readFileSync(KEYPATH),
+    cert : fs.readFileSync(CERTPATH)
 }
-
 
 // start server
 https.createServer(options, app).listen(PORT, function () {
