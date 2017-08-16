@@ -6,9 +6,14 @@
 const childProcess = require('child_process');
 const crypto = require('crypto');
 const express = require('express');
+const https = require('https');
 const bodyParser = require('body-parser');
 const path = require('path');
+const fs = require('fs');
 
+var PORT = process.env.PORT || 443;
+var KEYPATH = process.env.KEYPATH || 'ssl/key.pem';
+var CERTPATH = process.env.CERTPATH || 'ssl/cert.pem';
 const messageRegex = process.env.MESSAGE_REGEX;
 const githubKey = process.env.GITHUB_KEY;
 const onReleaseCmd = process.env.ON_RELEASE_CMD;
@@ -91,9 +96,15 @@ app.post('/', function (req, res) {
   }
 })
 
+var options = {
+    key  : fs.readFileSync('ssl/key.pem'),
+    cert : fs.readFileSync('ssl/cert.pem')
+}
+
+
 // start server
-app.listen(80, function () {
-  console.log('Webhook release watcher: listening on port 80');
+https.createServer(options, app).listen(PORT, function () {
+  console.log('Webhook release watcher: listening on port ' + PORT);
   console.log(`Runs ${onReleaseCmd} when receives valid webhook POST`);
 })
 
