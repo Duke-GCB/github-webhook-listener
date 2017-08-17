@@ -1,4 +1,4 @@
-# github-webhook-listener
+# hook-build
 Listens for github webhook, validates secret and runs a script
 
 ## Requires
